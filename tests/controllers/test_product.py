@@ -100,3 +100,16 @@ async def test_controller_delete_should_return_not_found(client, products_url):
     assert response.json() == {
         "detail": "Product not found with filter: 4fd7cd35-a3a0-4c1f-a78d-d24aa81e7dca"
     }
+
+async def test_controller_patch_should_return_unprocessable_entity(client, products_url, product_inserted):
+    # Campo inexistente
+    response = await client.patch(
+        f"{products_url}{product_inserted.id}", json={"invalid_field": "value"}
+    )
+    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+
+    # Valor inválido (preço negativo)
+    response = await client.patch(
+        f"{products_url}{product_inserted.id}", json={"price": "-100"}
+    )
+    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY

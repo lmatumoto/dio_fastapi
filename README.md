@@ -187,3 +187,6 @@ Vamos utilizar Pyenv + Poetry, link de como preparar o ambiente abaixo:
 [mongo-motor](https://motor.readthedocs.io/en/stable/)
 
 [pytest](https://docs.pytest.org/en/7.4.x/)
+
+
+# Adicionado teste para atualização parcial inválida, cobrindo campo inexistente e valor inválido, verificando o retorno 422 Unprocessable Entity.

@@ -33,10 +33,11 @@ async def clear_collections(mongo_client):
 
 
 @pytest.fixture
-async def client() -> AsyncClient:
+async def client():
     from store.main import app
-
-    async with AsyncClient(app=app, base_url="http://test") as ac:
+    from httpx import ASGITransport, AsyncClient
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
         yield ac
 
 
